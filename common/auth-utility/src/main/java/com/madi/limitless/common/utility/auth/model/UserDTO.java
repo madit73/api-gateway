@@ -19,6 +19,9 @@ import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * User profile payload used by auth and user-management endpoints.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -74,11 +77,17 @@ public class UserDTO
 
     private LocalDateTime updateDate;
 
+    /**
+     * Sanitizes activation key input to prevent unsafe HTML content.
+     */
     public void setActivationKey(String activationKey)
     {
         this.activationKey = SanitizeUtil.sanitizeAllowCommonFormat(activationKey);
     }
 
+    /**
+     * Uses JSON-style formatting for concise debug logging.
+     */
     @Override
     public String toString()
     {

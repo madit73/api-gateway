@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * Privilege payload with optional role associations.
+ */
 @Getter
 @Setter
 @Builder

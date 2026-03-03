@@ -17,6 +17,9 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+/**
+ * Helper for parsing and validating JWTs, with convenience accessors for common claims.
+ */
 @Slf4j
 @Getter
 public class JwtHelper
@@ -65,23 +68,35 @@ public class JwtHelper
         }
     }
 
+    /**
+     * Builds an HMAC signing key from a base64-encoded secret.
+     */
     public static SecretKey getSigningKey(String secret)
     {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
     }
 
+    /**
+     * Parses and validates a JWT, returning its claims when the signature is valid.
+     */
     public static Claims getJwtClaims(@NotNull String secret, @NotNull String jwt)
     {
         return Jwts.parser().verifyWith(getSigningKey(secret)).build()
                    .parseSignedClaims(jwt.replace(GlobalAuthConstants.BEARER, "")).getPayload();
     }
 
+    /**
+     * Creates a helper using a raw (non-base64) secret, encoding it before parsing.
+     */
     public static JwtHelper buildJwtHelperWithUnCodedSecret(@NotBlank String secret, @NotBlank String jwt)
     {
         String encodedSecret = Base64.getEncoder().encodeToString(secret.getBytes(StandardCharsets.UTF_8));
         return new JwtHelper(encodedSecret, jwt);
     }
 
+    /**
+     * Creates a helper using a base64-encoded secret.
+     */
     public static JwtHelper buildJwtHelperWithEnCodedSecret(@NotBlank String secret, @NotBlank String jwt)
     {
         return new JwtHelper(secret, jwt);
@@ -112,11 +127,17 @@ public class JwtHelper
         return getClaimData(JWT_VERSION_KEY, String.class);
     }
 
+    /**
+     * Reads the access/privileges claim as a list of strings.
+     */
     public List<String> getPrivileges()
     {
         return getClaimData(ACCESS_KEY, List.class);
     }
 
+    /**
+     * Reads a claim value and casts it to the expected type.
+     */
     public <T> T getClaimData(@NotNull String claimName, Class<T> expectedResultType)
     {
         return getClaims().get(claimName, expectedResultType);

@@ -4,6 +4,9 @@ package com.madi.limitless.common.utility.auth.constant;
 import java.util.regex.Pattern;
 import lombok.experimental.UtilityClass;
 
+/**
+ * Shared authentication constants and validation rules used across auth and gateway modules.
+ */
 @UtilityClass
 public final class GlobalAuthConstants
 {

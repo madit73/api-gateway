@@ -11,6 +11,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Login request payload containing user credentials and site context.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,6 +35,9 @@ public class LoginModel
     @NotBlank
     private String siteCode;
 
+    /**
+     * Intentionally omits the password from logs.
+     */
     @Override
     public String toString()
     {
