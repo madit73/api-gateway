@@ -1,0 +1,35 @@
+package com.madi.limitless.common.utility.rest.controller.errors.exception;
+
+
+import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.util.StringUtils;
+
+@Setter
+@Getter
+public class MultipleExceptionsException extends RuntimeException
+{
+    private final List<Throwable> exceptions;
+    private static final String MESSAGE = "This file has multiple exceptions associated to it.";
+
+    public MultipleExceptionsException(List<Throwable> exceptions, String message)
+    {
+        // Precompute the final message before calling super()
+        super(buildMessage(exceptions, message));
+        this.exceptions = exceptions;
+    }
+
+    private static String buildMessage(List<Throwable> exceptions, String message)
+    {
+        StringBuilder messageBuilder = new StringBuilder(
+            StringUtils.hasText(message) ? message : MESSAGE
+        );
+        messageBuilder.append("\n");
+        exceptions.forEach(e -> messageBuilder.append(e.getClass().getName())
+                                              .append(": ")
+                                              .append(e.getMessage())
+                                              .append("\n"));
+        return messageBuilder.toString();
+    }
+}
