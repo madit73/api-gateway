@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Standard wrapper for one or more API error details.
+ */
 @Getter
 @Setter
 @Builder

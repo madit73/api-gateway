@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * Detailed error payload included in API error responses.
+ */
 @Data
 @Builder
 @Validated

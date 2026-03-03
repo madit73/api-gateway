@@ -16,7 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MixedResult
 {
+    /** Identifiers of successful operations. */
     private List<Long> successful;
+    /** Exceptions from failed operations. */
     private List<Throwable> exceptions;
 }
-

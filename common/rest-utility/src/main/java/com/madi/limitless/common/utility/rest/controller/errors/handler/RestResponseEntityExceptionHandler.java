@@ -43,11 +43,17 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ * Centralized exception-to-HTTP response mapping for REST controllers.
+ */
 @Slf4j
 @Validated
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler
 {
+    /**
+     * Returns a consolidated error response for batch operations that throw multiple exceptions.
+     */
     @ExceptionHandler(value = { MultipleExceptionsException.class })
     protected ResponseEntity<Object> handleMultipleExceptionsException(
         MultipleExceptionsException ex, WebRequest request
@@ -65,6 +71,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps unimplemented endpoints to HTTP 501 with guidance messaging.
+     */
     @ExceptionHandler(value = { NotImplementedException.class })
     protected ResponseEntity<Object> handleNotImplementedExceptionViolation(
         NotImplementedException ex,
@@ -87,6 +96,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps invalid time period requests to HTTP 451 with actionable guidance.
+     */
     @ExceptionHandler(value = { IllegalTimePeriodException.class })
     protected ResponseEntity<Object> handleIllegalTimePeriodError(IllegalTimePeriodException ex, WebRequest request)
     {
@@ -108,6 +120,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps server-side errors to HTTP 500 with a generic safe response.
+     */
     @ExceptionHandler(value = { InternalServerErrorException.class })
     protected ResponseEntity<Object> handleInternalServerError(InternalServerErrorException ex, WebRequest request)
     {
@@ -121,6 +136,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps authentication failures to HTTP 403.
+     */
     @ExceptionHandler(value = { AuthenticationException.class })
     protected ResponseEntity<Object> handleAuthenticationErrors(AuthenticationException ex, WebRequest request)
     {
@@ -136,6 +154,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps authorization failures to HTTP 403.
+     */
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex, WebRequest request)
     {
@@ -150,6 +171,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps bean validation constraint violations to HTTP 400 with details.
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     protected ResponseEntity<Object> handleConstraintViolationException(
         ConstraintViolationException ex, WebRequest request
@@ -173,6 +197,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps invalid arguments to HTTP 400.
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     protected ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request)
     {
@@ -185,6 +212,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps JPA entity-not-found errors to HTTP 400 with guidance.
+     */
     @ExceptionHandler(value = { EntityNotFoundException.class })
     protected ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request)
     {
@@ -203,6 +233,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps domain "data not found" errors to HTTP 400.
+     */
     @ExceptionHandler(value = { EntityDataNotFoundException.class })
     protected ResponseEntity<Object> handleEntityDataNotFoundException(
         EntityDataNotFoundException ex, WebRequest request
@@ -221,6 +254,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps validation errors to HTTP 400.
+     */
     @ExceptionHandler(value = { DataValidationException.class })
     protected ResponseEntity<Object> handleDataValidationException(DataValidationException ex, WebRequest request)
     {
@@ -233,6 +269,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps generic validation exceptions to HTTP 400.
+     */
     @ExceptionHandler(value = { ValidationException.class })
     protected ResponseEntity<Object> handleValidationException(ValidationException ex, WebRequest request)
     {
@@ -245,6 +284,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps resource-not-found conditions to HTTP 500 (current behavior).
+     */
     @ExceptionHandler(ResourceNotFoundException.class)
     protected ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request)
     {
@@ -263,6 +305,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps request parameter type mismatches to HTTP 400.
+     */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatchException(
         MethodArgumentTypeMismatchException ex, WebRequest request
@@ -281,6 +326,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Maps delete conflicts to HTTP 409.
+     */
     @ExceptionHandler(DeleteEntityConflictException.class)
     protected ResponseEntity<Object> handleDeleteEntityConflict(DeleteEntityConflictException ex, WebRequest request)
     {
@@ -298,12 +346,18 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Returns a 207 Multi-Status response for partial success results.
+     */
     @ExceptionHandler(PartialSuccessException.class)
     protected ResponseEntity<MixedResult> handlePartialSuccessException(PartialSuccessException ex)
     {
         return new ResponseEntity<>(ex.getMixedResult(), new HttpHeaders(), HttpStatus.MULTI_STATUS);
     }
 
+    /**
+     * Maps IO errors (usually file parsing issues) to HTTP 400.
+     */
     @ExceptionHandler(value = { IOException.class })
     protected ResponseEntity<Object> handleIOException(
         @NotNull IOException ex,
@@ -324,6 +378,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return handleExceptionInternal(ex, errorResponse, new HttpHeaders(), status, request);
     }
 
+    /**
+     * Fallback handler for uncaught exceptions.
+     */
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(value = { Throwable.class })
     protected ResponseEntity<Object> handleThrowableError(final Throwable ex)
@@ -334,6 +391,9 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(bodyOfResponse, new HttpHeaders(), status);
     }
 
+    /**
+     * Formats validation errors thrown by {@code @Valid} argument binding.
+     */
     @Override
     protected @Nullable ResponseEntity<Object> handleMethodArgumentNotValid(
         MethodArgumentNotValidException ex,

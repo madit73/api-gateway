@@ -10,6 +10,9 @@ import org.owasp.html.HtmlStreamRenderer;
 import org.owasp.html.PolicyFactory;
 import org.springframework.util.StringUtils;
 
+/**
+ * HTML sanitization helpers built on OWASP Java HTML Sanitizer policies.
+ */
 @Slf4j
 @UtilityClass
 public class SanitizeUtil
@@ -36,12 +39,18 @@ public class SanitizeUtil
         return sanitize(content, policyBuilder);
     }
 
+    /**
+     * Sanitizes content while allowing standard URL protocols.
+     */
     public static String sanitizeAllowUrls(String content)
     {
         HtmlPolicyBuilder policyBuilder = new HtmlPolicyBuilder().allowStandardUrlProtocols();
         return sanitize(content, policyBuilder);
     }
 
+    /**
+     * Sanitizes content and restores commonly encoded characters used by rich text editors.
+     */
     public static String sanitizeAllowCommonFormatIgnoreChars(String content)
     {
         HtmlPolicyBuilder policyBuilder = new HtmlPolicyBuilder().allowCommonInlineFormattingElements();
@@ -64,6 +73,9 @@ public class SanitizeUtil
         return s.replace("&#61;", "=");
     }
 
+    /**
+     * Sanitizes HTML while allowing option/optgroup elements and common attributes for dropdowns.
+     */
     public static String sanitizeAllowDropDownOption(String content)
     {
         HtmlPolicyBuilder optionPolicy = new HtmlPolicyBuilder()

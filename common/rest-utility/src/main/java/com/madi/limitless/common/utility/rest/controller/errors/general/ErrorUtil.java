@@ -4,9 +4,15 @@ package com.madi.limitless.common.utility.rest.controller.errors.general;
 import java.util.Collections;
 import lombok.experimental.UtilityClass;
 
+/**
+ * Factory helpers for building consistent {@link ErrorResponse} payloads.
+ */
 @UtilityClass
 public class ErrorUtil
 {
+    /**
+     * Creates a response with the provided explanation and recommended action.
+     */
     public static ErrorResponse createErrorResponse(Exception ex, String explanation, String action)
     {
 
@@ -24,6 +30,9 @@ public class ErrorUtil
         return new ErrorResponse(Collections.singletonList(errorDetail));
     }
 
+    /**
+     * Creates a response using default explanation and action strings.
+     */
     public static ErrorResponse createErrorResponse(Exception ex)
     {
 

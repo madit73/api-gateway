@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * Signals a partial success result where some operations failed.
+ */
 @Data
 @Validated
 @AllArgsConstructor
