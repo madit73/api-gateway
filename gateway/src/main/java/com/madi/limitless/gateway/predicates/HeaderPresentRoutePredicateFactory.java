@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ServerWebExchange;
 
+/**
+ * Route predicate that matches based on presence (or absence) of a header.
+ */
 @Slf4j
 @Component
 @Validated
@@ -24,6 +27,9 @@ public class HeaderPresentRoutePredicateFactory
         super(Config.class);
     }
 
+    /**
+     * Builds a predicate that checks for the configured header name.
+     */
     @Override
     public Predicate<ServerWebExchange> apply(Config config)
     {
@@ -56,6 +62,9 @@ public class HeaderPresentRoutePredicateFactory
         };
     }
 
+    /**
+     * Configuration for the header predicate.
+     */
     @Getter
     @Setter
     @Validated

@@ -29,6 +29,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+/**
+ * Gateway filter that validates JWTs and refreshes them on each request.
+ */
 @Slf4j
 @Validated
 @Component
@@ -45,6 +48,9 @@ public class AuthorizationGatewayFilterFactory
         this.jwtToken = jwtToken;
     }
 
+    /**
+     * Applies authentication checks and refresh logic to gateway requests.
+     */
     @Override
     public GatewayFilter apply(AuthorizationGatewayFilterFactory.Config config)
     {
@@ -120,6 +126,9 @@ public class AuthorizationGatewayFilterFactory
         );
     }
 
+    /**
+     * Adds the refreshed token to the outgoing request headers.
+     */
     private ServerHttpRequest updateRequest(ServerWebExchange exchange, String newJwt)
     {
         ServerHttpRequest request = exchange.getRequest();
@@ -138,6 +147,9 @@ public class AuthorizationGatewayFilterFactory
                       .build();
     }
 
+    /**
+     * Determines if the current request matches a public endpoint.
+     */
     private boolean isRequestPublic(ServerWebExchange exchange, Config config)
     {
         String rawPath = exchange.getRequest().getURI().getRawPath();
@@ -158,6 +170,9 @@ public class AuthorizationGatewayFilterFactory
         return false;
     }
 
+    /**
+     * Writes the refreshed token to both response header and cookie.
+     */
     private void setResponseCookieAndHeader(
         ServerWebExchange exchange,
         String jwt,
@@ -184,6 +199,9 @@ public class AuthorizationGatewayFilterFactory
         ));
     }
 
+    /**
+     * Builds a secure, HTTP-only cookie scoped to the gateway's context path.
+     */
     private ResponseCookie createCookie(
         ServerWebExchange exchange,
         String value,
@@ -205,6 +223,9 @@ public class AuthorizationGatewayFilterFactory
     }
 
     /// this can be used with any front end
+    /**
+     * Issues a redirect to the configured login page.
+     */
     private void redirectUserToLogin(ServerWebExchange exchange, Config config)
     {
         exchange.getResponse().getHeaders().add(GlobalAuthConstants.LOCATION_HEADER, config.getTimeoutUrl());
@@ -216,6 +237,9 @@ public class AuthorizationGatewayFilterFactory
         log.debug("{} Leaving {}", exchange.getLogPrefix(), getClass().getSimpleName());
     }
 
+    /**
+     * Configuration properties for the authorization filter.
+     */
     @Getter
     @Setter
     @Validated

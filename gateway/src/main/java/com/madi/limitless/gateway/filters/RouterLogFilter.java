@@ -20,12 +20,18 @@ import reactor.core.publisher.Mono;
 
 import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR;
 
+/**
+ * Logs gateway routing details, including original URI and target route.
+ */
 @Slf4j
 @Component
 @Validated
 @RequiredArgsConstructor
 public class RouterLogFilter implements GlobalFilter, Ordered
 {
+    /**
+     * Adds correlation ID headers for specific routes and logs request/response metadata.
+     */
     @Override
     public Mono<Void> filter(
         ServerWebExchange exchange,
@@ -124,6 +130,9 @@ public class RouterLogFilter implements GlobalFilter, Ordered
         }
     }
 
+    /**
+     * Orders this filter ahead of standard route filters.
+     */
     @Override
     public int getOrder()
     {

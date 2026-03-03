@@ -29,6 +29,9 @@ import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.FIRST_NAME_KE
 import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.JWT_VERSION_KEY;
 import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.LAST_NAME_KEY;
 
+/**
+ * Retrieves and refreshes JWTs for gateway requests.
+ */
 @Slf4j
 @Component
 @Validated
@@ -41,6 +44,9 @@ public class JwtToken implements IJwtToken
 
     private long tokenValidityInMilliseconds;
 
+    /**
+     * Precomputes the encoded signing key and token validity window.
+     */
     @PostConstruct
     public void init()
     {
@@ -49,6 +55,9 @@ public class JwtToken implements IJwtToken
         this.tokenValidityInMilliseconds = config.getJwt().getTokenValidityInSeconds() * 1000L;
     }
 
+    /**
+     * Resolves the bearer token from either the auth cookie or authorization header.
+     */
     public String getJwtToken(ServerWebExchange exchange)
     {
         ServerHttpRequest request = exchange.getRequest();
@@ -96,6 +105,9 @@ public class JwtToken implements IJwtToken
         return bearerStr;
     }
 
+    /**
+     * Refreshes a JWT by copying claims and extending expiration.
+     */
     @Override
     public String refreshJwtToken(String oldJwt)
     {

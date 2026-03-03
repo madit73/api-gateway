@@ -13,6 +13,9 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
+/**
+ * Externalized configuration for gateway behavior and JWT settings.
+ */
 @Slf4j
 @Getter
 @Setter
@@ -31,6 +34,9 @@ public class GatewayConfig
     @NotNull
     private Jwt jwt = new Jwt();
 
+    /**
+     * JWT configuration values sourced from application properties.
+     */
     @Getter
     @Setter
     @Validated
