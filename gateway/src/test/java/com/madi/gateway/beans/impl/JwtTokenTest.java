@@ -1,10 +1,10 @@
-package com.madi.limitless.gateway.beans.impl;
+package com.madi.gateway.beans.impl;
 
 
 import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
 import com.madi.limitless.common.utility.auth.jwt.JwtHelper;
 import com.madi.limitless.common.utility.auth.test.utiltities.TokenHelper;
-import com.madi.limitless.gateway.config.GatewayConfig;
+import com.madi.gateway.config.GatewayConfig;
 import io.jsonwebtoken.Claims;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

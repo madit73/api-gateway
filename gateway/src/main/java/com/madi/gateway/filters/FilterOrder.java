@@ -1,4 +1,4 @@
-package com.madi.limitless.gateway.filters;
+package com.madi.gateway.filters;
 
 
 import lombok.AllArgsConstructor;

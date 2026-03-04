@@ -1,4 +1,4 @@
-package com.madi.limitless.gateway;
+package com.madi.gateway;
 
 
 import org.springframework.boot.SpringApplication;

@@ -1,4 +1,4 @@
-package com.madi.limitless.gateway.beans.api;
+package com.madi.gateway.beans.api;
 
 
 import org.springframework.web.server.ServerWebExchange;

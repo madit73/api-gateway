@@ -1,4 +1,4 @@
-package com.madi.limitless.gateway.config;
+package com.madi.gateway.config;
 
 
 import jakarta.validation.constraints.NotBlank;

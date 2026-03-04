@@ -1,4 +1,4 @@
-package com.madi.limitless.gateway.predicates;
+package com.madi.gateway.predicates;
 
 
 import org.junit.jupiter.api.BeforeEach;

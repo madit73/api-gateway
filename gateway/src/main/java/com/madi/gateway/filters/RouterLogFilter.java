@@ -1,4 +1,4 @@
-package com.madi.limitless.gateway.filters;
+package com.madi.gateway.filters;
 
 
 import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
