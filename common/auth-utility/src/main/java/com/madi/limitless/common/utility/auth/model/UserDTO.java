@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
 import com.madi.limitless.common.utility.auth.enums.LockStatus;
 import com.madi.limitless.common.utility.auth.enums.UserStatus;
-import com.madi.limitless.common.utility.rest.security.SanitizeUtil;
+import com.madi.common.utility.rest.security.SanitizeUtil;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
