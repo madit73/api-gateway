@@ -1,8 +1,8 @@
-package com.madi.limitless.common.utility.auth.model;
+package com.madi.common.utility.auth.model;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

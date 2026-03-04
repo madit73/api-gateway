@@ -1,4 +1,4 @@
-package com.madi.limitless.common.utility.auth.model;
+package com.madi.common.utility.auth.model;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,4 +1,4 @@
-package com.madi.limitless.common.utility.auth.enums;
+package com.madi.common.utility.auth.enums;
 
 
 /**

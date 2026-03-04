@@ -1,4 +1,4 @@
-package com.madi.limitless.common.utility.auth.constant;
+package com.madi.common.utility.auth.constant;
 
 
 import java.util.regex.Pattern;

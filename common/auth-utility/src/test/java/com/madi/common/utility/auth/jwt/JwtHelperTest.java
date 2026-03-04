@@ -1,7 +1,7 @@
-package com.madi.limitless.common.utility.auth.jwt;
+package com.madi.common.utility.auth.jwt;
 
 
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;

@@ -1,10 +1,10 @@
-package com.madi.limitless.common.utility.auth.model;
+package com.madi.common.utility.auth.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
-import com.madi.limitless.common.utility.auth.enums.LockStatus;
-import com.madi.limitless.common.utility.auth.enums.UserStatus;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.enums.LockStatus;
+import com.madi.common.utility.auth.enums.UserStatus;
 import com.madi.common.utility.rest.security.SanitizeUtil;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,7 +1,7 @@
-package com.madi.limitless.common.utility.auth.test.utiltities;
+package com.madi.common.utility.auth.test.utiltities;
 
 
-import com.madi.limitless.common.utility.auth.jwt.JwtHelper;
+import com.madi.common.utility.auth.jwt.JwtHelper;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import java.util.Date;
