@@ -1,0 +1,100 @@
+logging:
+  level:
+    com.madi.limitless.gateway: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+#    org.springframework.http.server.reactive: DEBUG
+#    org.springframework.web.reactive: DEBUG
+#    org.springframework.boot.autoconfigure.web: DEBUG
+#    reactor.netty: DEBUG
+
+server:
+  port: 8080
+
+limitless:
+  gw:
+    jwt:
+      secret: ${JWT_SECRET}
+    extensions: .woff2,.css,.scss,.ico,.xml,.map,.json,.css,.img,.js,.partials,.rest,.favicon,.jpg,.jpeg,.gif,.png,.svg,.html,.pdf,.axd
+    redirect-login-path: /mads/portal/authenticate
+    uris:
+      ng-app-uri: http://localhost:4200
+      portal-uri: http://localhost:8088
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      validate-group-membership: false
+      access: unrestricted
+    metrics:
+      access: unrestricted
+    prometheus:
+      access: unrestricted
+  metrics:
+    tags:
+      application: "${spring.application.name}"
+  info:
+    java:
+      enabled: true
+  health:
+    defaults:
+      enabled: true
+    livenessstate:
+      enabled: true
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: limitless-gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          enabled: true
+          default-filters:
+            - name: Authorization
+              args:
+                timeout-url: http://localhost:8080/mads/portal/authenticate
+                extensions: ${limitless.gw.extensions}
+            - name: Retry
+              args:
+                retries: 3
+                methods: GET,POST,HEAD,DELETE,PATCH,PUT,OPTIONS
+          routes:
+            - id: mads-portal
+              order: 50
+              uri: ${limitless.gw.uris.portal-uri}
+              predicates:
+                - Path=/*/portal/**
+
+            - id: mads-ngApp
+              order: 70
+              uri: ${limitless.gw.uris.ng-app-uri}
+              predicates:
+                - Path=/*/mads-ng/**
+              filters:
+                - RewritePath=/mads/mads-ng/(?<segment>.*),/$\{segment}
+
+            - id: error
+              order: 799
+              uri: ${limitless.gw.uris.portal-uri}
+              predicates:
+                - Path=/*/error
+
+            - id: swagger
+              order: 800
+              uri: ${limitless.gw.uris.portal-uri}
+              predicates:
+                - Path=/*/swagger-ui/**, /*/*/swagger-ui/**, /*/*/api-docs/**
