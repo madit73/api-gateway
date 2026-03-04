@@ -1,7 +1,7 @@
 package com.madi.gateway.filters;
 
 
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
 import java.net.URI;
 import java.util.Collections;
 import java.util.Set;

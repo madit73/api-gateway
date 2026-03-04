@@ -20,9 +20,9 @@ import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
-import static com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants.AUTHORIZATION_HEADER;
-import static com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants.BEARER;
-import static com.madi.limitless.common.utility.auth.test.utiltities.TokenHelper.createToken;
+import static com.madi.common.utility.auth.constant.GlobalAuthConstants.AUTHORIZATION_HEADER;
+import static com.madi.common.utility.auth.constant.GlobalAuthConstants.BEARER;
+import static com.madi.common.utility.auth.test.utiltities.TokenHelper.createToken;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

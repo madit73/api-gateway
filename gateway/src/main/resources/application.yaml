@@ -1,6 +1,6 @@
 logging:
   level:
-    com.madi.limitless.gateway: DEBUG
+    com.madi.gateway: DEBUG
     org.springframework.cloud.gateway: DEBUG
 #    org.springframework.http.server.reactive: DEBUG
 #    org.springframework.web.reactive: DEBUG

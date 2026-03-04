@@ -1,8 +1,8 @@
 package com.madi.gateway.filters;
 
 
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
-import com.madi.limitless.common.utility.auth.test.utiltities.TokenHelper;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.test.utiltities.TokenHelper;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import org.junit.jupiter.api.BeforeEach;

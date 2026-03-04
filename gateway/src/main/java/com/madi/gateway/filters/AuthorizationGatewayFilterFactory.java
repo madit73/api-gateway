@@ -1,8 +1,8 @@
 package com.madi.gateway.filters;
 
 
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
-import com.madi.limitless.common.utility.auth.jwt.JwtHelper;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.jwt.JwtHelper;
 import com.madi.gateway.beans.impl.JwtToken;
 import com.madi.gateway.config.GatewayConfig;
 import jakarta.validation.constraints.NotBlank;

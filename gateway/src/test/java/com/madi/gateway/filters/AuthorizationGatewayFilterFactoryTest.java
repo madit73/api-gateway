@@ -3,9 +3,9 @@ package com.madi.gateway.filters;
 
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
-import com.madi.limitless.common.utility.auth.jwt.JwtHelper;
-import com.madi.limitless.common.utility.auth.test.utiltities.TokenHelper;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.jwt.JwtHelper;
+import com.madi.common.utility.auth.test.utiltities.TokenHelper;
 import io.jsonwebtoken.Claims;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;

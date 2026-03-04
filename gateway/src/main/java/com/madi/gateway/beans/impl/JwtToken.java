@@ -1,8 +1,8 @@
 package com.madi.gateway.beans.impl;
 
 
-import com.madi.limitless.common.utility.auth.constant.GlobalAuthConstants;
-import com.madi.limitless.common.utility.auth.jwt.JwtHelper;
+import com.madi.common.utility.auth.constant.GlobalAuthConstants;
+import com.madi.common.utility.auth.jwt.JwtHelper;
 import com.madi.gateway.beans.api.IJwtToken;
 import com.madi.gateway.config.GatewayConfig;
 import io.jsonwebtoken.Claims;
@@ -23,11 +23,11 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ServerWebExchange;
 
-import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.ACCESS_KEY;
-import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.EMAIL_KEY;
-import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.FIRST_NAME_KEY;
-import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.JWT_VERSION_KEY;
-import static com.madi.limitless.common.utility.auth.jwt.JwtHelper.LAST_NAME_KEY;
+import static com.madi.common.utility.auth.jwt.JwtHelper.ACCESS_KEY;
+import static com.madi.common.utility.auth.jwt.JwtHelper.EMAIL_KEY;
+import static com.madi.common.utility.auth.jwt.JwtHelper.FIRST_NAME_KEY;
+import static com.madi.common.utility.auth.jwt.JwtHelper.JWT_VERSION_KEY;
+import static com.madi.common.utility.auth.jwt.JwtHelper.LAST_NAME_KEY;
 
 /**
  * Retrieves and refreshes JWTs for gateway requests.
