@@ -15,7 +15,7 @@ public enum FilterOrder
 {
     /** Runs first to log routing decisions. */
     ROUTER_LOG(Ordered.HIGHEST_PRECEDENCE),
-    /** Runs after route-to-URL to preserve target URI. */
+    /** Runs after route-to-URL to preserve the target URI. */
     GLOBAL_URI(RouteToRequestUrlFilter.ROUTE_TO_URL_FILTER_ORDER + 1),
     /** Runs before downstream routing to enforce authorization. */
     AUTHORIZATION(-1);
