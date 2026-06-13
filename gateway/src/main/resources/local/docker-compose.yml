@@ -1,0 +1,28 @@
+networks:
+  monitoring:
+
+services:
+  redis:
+    container_name: local-redis
+    image: redis:latest
+    command: redis-server --appendonly yes
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - monitoring
+  redis-commander:
+    container_name: redis-commander
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:local-redis:6379:0
+      - PORT=8091
+    ports:
+      - "8091:8091"
+    depends_on:
+      - redis
+    networks:
+      - monitoring
+volumes:
+  redis_data:

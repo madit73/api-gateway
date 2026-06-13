@@ -19,6 +19,7 @@ limitless:
     uris:
       ng-app-uri: http://localhost:4200
       portal-uri: http://localhost:8088
+      rate-limit-uri: http://localhost:8088
 
 management:
   endpoints:
@@ -54,6 +55,10 @@ management:
       enabled: true
 
 spring:
+  docker:
+    compose:
+      enabled: true
+      file: classpath:local/docker-compose.yml
   main:
     web-application-type: reactive
   application:
@@ -78,6 +83,19 @@ spring:
               uri: ${limitless.gw.uris.portal-uri}
               predicates:
                 - Path=/*/portal/**
+
+            - id: rate-limit
+              order: 60
+              uri: ${limitless.gw.uris.rate-limit-uri}
+              predicates:
+                - Path=/*/rate-limit/**
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    redis-rate-limiter.replenishRate: 10
+                    redis-rate-limiter.burstCapacity: 20
+                    redis-rate-limiter.requestedTokens: 1
+                    key-resolver: "#{@apiKeyResolver}"
 
             - id: mads-ngApp
               order: 70
