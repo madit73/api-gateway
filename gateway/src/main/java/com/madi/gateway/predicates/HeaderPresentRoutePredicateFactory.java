@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
- * Route predicate that matches based on presence (or absence) of a header.
+ * Route predicate that matches based on the presence (or absence) of a header.
  */
 @Slf4j
 @Component

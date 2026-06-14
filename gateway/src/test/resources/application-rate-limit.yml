@@ -1,0 +1,33 @@
+limitless:
+  gw:
+    extensions: .pdf
+    redirect-login-path: /home
+    jwt:
+      secret: 00229de4205453b53b706c28b2300641d86cc14b8608346574bbb790b8812af21c942b9e2069fba7e44850b3135da7c304af0a09d024fdbb2c1ff24d8e43e79f
+    uris:
+      portal-uri: http://localhost:${wiremock.server.port}
+      rate-limit-uri: http://localhost:${wiremock.server.port}
+
+spring:
+  docker:
+    compose:
+      enabled: false
+  cloud:
+    gateway:
+      server:
+        webflux:
+          # Clear all default filters so tests don't require a JWT
+          default-filters: []
+          routes:
+            - id: rate-limit-test
+              predicates:
+                - Path=/mads/rate-limit/**
+              uri: http://localhost:${wiremock.server.port}
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    # Low limits so tests can exhaust the bucket quickly
+                    redis-rate-limiter.replenishRate: 1
+                    redis-rate-limiter.burstCapacity: 2
+                    redis-rate-limiter.requestedTokens: 1
+                    key-resolver: "#{@apiKeyResolver}"

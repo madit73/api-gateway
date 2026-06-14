@@ -75,7 +75,10 @@ public class AuthorizationGatewayFilterFactory
                 String token = jwtToken.getJwtToken(exchange);
 
                 JwtHelper jwtHelper = JwtHelper.buildJwtHelperWithUnCodedSecret(
-                    gatewayConfig.getJwt().getSecret(), token);
+                    gatewayConfig.getJwt().getSecret(),
+                    token
+                );
+
                 if (!StringUtils.hasText(token) && isValidExtension)
                 {
                     log.debug(
@@ -114,15 +117,18 @@ public class AuthorizationGatewayFilterFactory
                 }
                 else
                 {
-                    //todo session changes can be made here, convert to if else if wanted
+                    //TODO session changes can be made here, convert to if else, if wanted
                     String newJwt = jwtToken.refreshJwtToken(
-                        StringUtils.replace(token, GlobalAuthConstants.BEARER, ""));
+                        StringUtils.replace(token, GlobalAuthConstants.BEARER, "")
+                    );
+
                     ServerHttpRequest newRequest = updateRequest(exchange, newJwt);
                     logLeavingFunction(exchange);
                     return chain.filter(exchange.mutate().request(newRequest).build())
                                 .then(Mono.fromRunnable(() -> setResponseCookieAndHeader(exchange, newJwt, config)));
                 }
-            }, FilterOrder.AUTHORIZATION.getOrder()
+            },
+            FilterOrder.AUTHORIZATION.getOrder()
         );
     }
 
@@ -247,12 +253,13 @@ public class AuthorizationGatewayFilterFactory
     public static class Config
     {
         @NotEmpty
-        private List<String> prefixes = List.of("/portal");
+        private List<String> prefixes = List.of("/portal", "/rate-limit");
 
         @NotBlank
         private String timeoutUrl;
 
         private long cookieMaxAge = 1200; // age in seconds
+
         @NotEmpty
         private List<String> extensions = Collections.singletonList(
             ".woff2,.css,.scss,.ico,.xml,.map,.json,.css,.img," +
